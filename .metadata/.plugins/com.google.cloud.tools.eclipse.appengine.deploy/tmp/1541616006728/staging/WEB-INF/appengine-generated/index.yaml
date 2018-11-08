@@ -1,0 +1,13 @@
+indexes:
+- kind: "Dato-final"
+  properties:
+  - name: "tipo"
+    direction: asc
+  - name: "cuando"
+    direction: asc
+- kind: "Dato-final"
+  properties:
+  - name: "tipo"
+    direction: asc
+  - name: "cuando"
+    direction: desc

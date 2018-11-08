@@ -1,0 +1,102 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="com.google.appengine.api.datastore.*"%>
+<%@ page import="com.google.appengine.api.datastore.Query.*"%>
+<%@ page import="com.google.appengine.api.datastore.Query.Filter"%>
+
+<html>
+<head>
+<title>Grafica Luminosidad</title>
+</head>
+<body>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+	<%
+   	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+	%>
+
+	<div id="container"
+		style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+	<script type="text/javascript">
+
+			var michart;
+
+			function inserta(tiempo,medicion)
+			{    
+			      michart.series[0].addPoint([tiempo,medicion]);
+			}
+
+			
+	$(document).ready(function () {
+    Highcharts.setOptions({
+        global: {
+            useUTC: false
+        }
+    });
+
+    michart=Highcharts.chart('container', {
+        chart: {
+            type: 'spline',
+            animation: Highcharts.svg, // don't animate in old IE
+            marginRight: 10,
+        },
+        title: {
+            text: 'Luminosidad habitacion'
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 150
+        },
+        yAxis: {
+            title: {
+                text: 'Valor luminosidad'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        legend: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
+        },
+        series: [{
+            name: 'Datos',       
+        }]
+    });
+
+
+ 	<%
+   	
+	//Use class Query to assemble a query
+	Filter propertyFilter =new FilterPredicate("id", FilterOperator.EQUAL, "10");
+        
+	Query q = new Query("Bici")
+					.addSort("cuando", SortDirection.ASCENDING)
+					.setFilter(propertyFilter);
+    	
+	PreparedQuery pq = datastore.prepare(q);
+
+	for (Entity result : pq.asIterable()) {		
+   		Date x=(Date)result.getProperty("cuando");
+		Long y = (Long)result.getProperty("libres");
+		
+        out.println("inserta("+x.getTime()+","+y+");");             
+		}
+	
+      %>
+      
+
+}
+);	/* fin 	$(document).ready(function () { */
+
+		</script>
+
+</body>
+</html>

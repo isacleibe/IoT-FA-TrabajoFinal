@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Configuracion</title>
+</head>
+<body>
+<script>
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+//        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+//            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+</script>
+
+<button type="button" onclick="httpGetAsync('/nocontrol')">NOCONTROL</button></body>
+<button type="button" onclick="httpGetAsync('/luzcontrol')">LUZCONTROL</button></body>
+</html>

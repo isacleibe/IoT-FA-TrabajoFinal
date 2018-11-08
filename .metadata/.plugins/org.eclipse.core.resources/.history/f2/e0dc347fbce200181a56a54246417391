@@ -1,0 +1,7 @@
+ <datastore-indexes autoGenerate="false">
+    <datastore-index kind="Dato-final" ancestor="false" source="manual">
+        <property name="tipo" direction="asc"/>
+        <property name="cuando" direction="asc"/>
+    </datastore-index>
+</datastore-indexes>
+    
