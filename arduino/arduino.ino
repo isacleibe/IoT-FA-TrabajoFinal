@@ -23,12 +23,17 @@ const int ALLCONTROL = 3;
 const byte tempPin = A0;
 const byte luzPin = A1;
 const byte releluzPin = 2;
+const byte reletempPin = 3;
 
 // PERIODOS
 const unsigned long anPer = 2000;
 const unsigned long monitorPer = 5000;
 const unsigned long sistemaPer = 5000;
 const unsigned long relePer = 5000;
+
+//UMBRALES
+const float UMBRALLUZ = 400;
+const float UMBRALTEMP = 700;
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //Entrada Analogica Periodica
@@ -72,7 +77,8 @@ void setup_Monitor (struct Monitor& m, unsigned long perms, unsigned long currms
   Serial.begin(9600);
   m.perms = perms;
   m.lastms = currms - m.perms;  
-  m.umbralLuz = 300;
+  m.umbralLuz = UMBRALLUZ;
+  m.umbralTemp = UMBRALTEMP;
 }
 
 void loop_Monitor(struct Monitor& m, const struct EntradaAnalogica& eluz, const struct EntradaAnalogica& etemp, unsigned long currms) {
@@ -88,6 +94,7 @@ void loop_Monitor(struct Monitor& m, const struct EntradaAnalogica& eluz, const 
         
     // ENVIA DATOS: temperatura y luminosidad.     
     Serial.println(eluz.estado);
+    //Serial.println(etemp.estado);
   }
   
 }
@@ -232,6 +239,7 @@ struct EntradaAnalogica sensorT, sensorL;
 struct Monitor monitor;
 struct Sistema sistema;
 struct ReleLuz releluz;
+struct ReleTemp reletemp;
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void setup() {
@@ -240,9 +248,11 @@ void setup() {
   unsigned long currms = millis();
   //setup_EntradaAnalogica(sensorT, tempPin, anPer, currms);
   setup_EntradaAnalogica(sensorL, luzPin, anPer, currms);
+  setup_EntradaAnalogica(sensorT, tempPin, anPer, currms);
   setup_Monitor(monitor, monitorPer, currms);
   setup_Sistema(sistema, sistemaPer, currms);
   setup_ReleLuz(releluz, releluzPin, relePer, currms);
+  setup_ReleTemp(reletemp, reletempPin, relePer, currms);
 }
 
 void loop() {
@@ -250,9 +260,11 @@ void loop() {
   unsigned long currms = millis();
   //loop_EntradaAnalogica(sensorT, currms);
   loop_EntradaAnalogica(sensorL, currms);
+  loop_EntradaAnalogica(sensorT, currms);
   loop_Monitor(monitor, sensorL, sensorT, currms);
   loop_Sistema(sistema, sensorL, sensorT, monitor, currms);
   loop_ReleLuz(releluz, sistema, currms);
+  loop_ReleTemp(reletemp, sistema, currms);
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------

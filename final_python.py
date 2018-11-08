@@ -37,7 +37,7 @@ import csv
 import json
 
 
-arduino = serial.Serial('COM3', 9600)
+arduino = serial.Serial('COM7', 9600)
 
 # The initial backoff time after a disconnection occurs, in seconds.
 minimum_backoff_time = 1
@@ -121,6 +121,10 @@ def on_publish(unused_client, unused_userdata, unused_mid):
 def on_message(unused_client, unused_userdata, message):
     """Callback when the device receives a message on a subscription."""
     payload = str(message.payload)
+    if (payload == 'allcontrol'):
+        arduino.write(str('d'))
+    if (payload == 'tempcontrol'):
+        arduino.write(str('c'))
     if (payload == 'luzcontrol'):
         arduino.write(str('b'))
     if (payload == 'nocontrol'):
