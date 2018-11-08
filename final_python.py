@@ -257,11 +257,20 @@ def main():
         while arduino.in_waiting:
             rawDato = arduino.readline()
             print(str(rawDato))
+            rawDatoT = arduino.readline()
+            print(str(rawDatoT))
             data={}
             data['sensorTipo'] = "luminosidad"
             data['valor'] = rawDato
             json_data = json.dumps(data)        
             client.publish(mqtt_topic, json_data, qos=1)
+
+            dataT={}
+            dataT['sensorTipo'] = "temperatura"
+            dataT['valor'] = rawDatoT
+            json_dataT = json.dumps(dataT)        
+            client.publish(mqtt_topic, json_dataT, qos=1)
+
         client.loop()            
         
 if __name__ == '__main__':

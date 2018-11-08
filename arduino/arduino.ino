@@ -33,7 +33,7 @@ const unsigned long relePer = 5000;
 
 //UMBRALES
 const float UMBRALLUZ = 400;
-const float UMBRALTEMP = 700;
+const float UMBRALTEMP = 740;
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //Entrada Analogica Periodica
@@ -94,7 +94,7 @@ void loop_Monitor(struct Monitor& m, const struct EntradaAnalogica& eluz, const 
         
     // ENVIA DATOS: temperatura y luminosidad.     
     Serial.println(eluz.estado);
-    //Serial.println(etemp.estado);
+    Serial.println(etemp.estado);
   }
   
 }

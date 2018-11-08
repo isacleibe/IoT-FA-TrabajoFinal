@@ -41,6 +41,10 @@ handlers:
   script: unused
   login: optional
   secure: optional
+- url: /tempcontrol
+  script: unused
+  login: optional
+  secure: optional
 - url: /nocontrol
   script: unused
   login: optional
@@ -53,5 +57,7 @@ handlers:
   script: unused
   login: optional
   secure: optional
-
-skip_files: app.yaml
+- url: /allcontrol
+  script: unused
+  login: optional
+  secure: optional

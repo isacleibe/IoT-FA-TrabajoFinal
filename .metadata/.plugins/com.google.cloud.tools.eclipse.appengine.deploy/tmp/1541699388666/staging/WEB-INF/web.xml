@@ -10,9 +10,19 @@
         <servlet-class>org.apache.jsp.grafica_005fluz_jsp</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>org.apache.jsp.grafica_005ftemp_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.grafica_005ftemp_jsp</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>org.apache.jsp.grafica_005fluz_jsp</servlet-name>
         <url-pattern>/grafica_luz.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.grafica_005ftemp_jsp</servlet-name>
+        <url-pattern>/grafica_temp.jsp</url-pattern>
     </servlet-mapping>
 
 <!-- JSPC servlet mappings end -->
