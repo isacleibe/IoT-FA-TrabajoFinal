@@ -37,7 +37,7 @@ import csv
 import json
 
 
-arduino = serial.Serial('COM7', 9600)
+arduino = serial.Serial('COM3', 9600)
 
 # The initial backoff time after a disconnection occurs, in seconds.
 minimum_backoff_time = 1
