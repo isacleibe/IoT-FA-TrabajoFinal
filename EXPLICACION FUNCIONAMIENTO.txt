@@ -1,1 +1,18 @@
-Hola Mundo !
+Explicacion del proyecto:
+
+El objetivo del proyecto consiste en el control automatico de la temperatura y la luminosidad de una habitacion mediante una appWeb además
+de su visualización.
+
+El skecth de Arduino se encargará de recoger los estados de los sensores y enviarlos a traves de comunicación Serial a un programa Python
+en un PC, además, recibirá la configuración de control deseada (NOCONTROL, LUZCONTROL, TEMPCONTROL, ALLCONTROL). En funcion de la configuracion
+Arduino activará los relés respectivos que encienden la calefacción o las luces de la habitación si estos descienden por los niveles umbrales
+previamente ajustados.
+
+El programa de Python se encargará de recoger los datos del Arduino, transformarlos en un dato tipo JSON y de enviarlos a GOOGLECLOUD mediante
+protocolo MQTT. Además cuando este reciba la configuración deseada desde GCLOUD enviará un caracter a Arduino que interpretará en su Sketch.
+
+En GCLOUD nosotros nos subscribiremos al tópico MQTT donde Python envía la información. Una función GFUNCTION se encargará de transformar ese 
+dato debidamente y de almacenarlo en una base de datos.
+
+Nuestra AppWeb, desarrollada con ECLIPSE y desplegada en APP ENGINE tendrá dos funcionalidades: Visualización de datos en graficas de los datos
+de la base de datos y el envio del estado deseado al programa de Python.
